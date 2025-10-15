@@ -5,13 +5,15 @@ import (
 	"errors"
 	"net/http"
 	"task0/models"
+	"time"
 )
 
 // GetKittyQuote fetches a quote from the catfact API and decodes it into
 // models.NekoQuote. It returns the quote or an error.
 func GetKittyQuote() (models.NekoQuote, error) {
 	url := "https://catfact.ninja/fact"
-	client := &http.Client{}
+	// set a reasonable timeout to avoid hanging requests
+	client := &http.Client{Timeout: 5 * time.Second}
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {

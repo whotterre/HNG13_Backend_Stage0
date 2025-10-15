@@ -20,13 +20,12 @@ func GetUserInfo(ctx *gin.Context) {
 		Stack: "Go/Gin",
 	}
 
-	// Use UTC ISO 8601 (RFC3339) for the timestamp
 	timestamp := time.Now().UTC().Format(time.RFC3339)
 
 	factData, err := clients.GetKittyQuote()
 	if err != nil {
 		log.Println("Sad meow. Failed to fetch kitty quote of the day", err)
-		factData = models.NekoQuote{Fact: ""}
+		factData = models.NekoQuote{Fact: "Could not fetch cat fact at the moment."}
 	}
 
 	response := dto.ResponseDto{
